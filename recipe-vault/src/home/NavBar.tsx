@@ -20,9 +20,8 @@ class SiteBar extends React.Component<SiteBarProps, SiteBarState> {
       <div>
         <Navbar color="faded" light expand="md">
           <NavbarBrand href="/">Recipe Vault</NavbarBrand>
-        
+          {/* This line says "if a token exists, show this Logout button" */}
           {this.props.sessionToken && <Button onClick={this.props.clearToken}>Logout</Button>}
-          
         </Navbar>
       </div>
     );
