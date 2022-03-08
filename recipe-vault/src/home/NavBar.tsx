@@ -1,29 +1,34 @@
 import React, { Component } from "react";
-import { Navbar, NavbarBrand } from "reactstrap";
+import { Navbar, NavbarBrand, Button } from "reactstrap";
 
 interface SiteBarProps {
-  
+  clearToken: () => void
+  sessionToken: string
 }
- 
+
 interface SiteBarState {
-  
+
 }
- 
+
 class SiteBar extends React.Component<SiteBarProps, SiteBarState> {
   constructor(props: SiteBarProps) {
     super(props);
-    this.state = {   };
+    this.state = {};
   }
-  render() { 
-    return ( 
-    <div>
-         <Navbar color="faded" light expand="md">
-        <NavbarBrand href="/">Recipe Vault</NavbarBrand>
-          </Navbar>
-         </div> );
+  render() {
+    return (
+      <div>
+        <Navbar color="faded" light expand="md">
+          <NavbarBrand href="/">Recipe Vault</NavbarBrand>
+        
+          {this.props.sessionToken && <Button onClick={this.props.clearToken}>Logout</Button>}
+          
+        </Navbar>
+      </div>
+    );
   }
 }
- 
+
 export default SiteBar;
 
 // class SiteBar extends Component {

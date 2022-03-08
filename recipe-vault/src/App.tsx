@@ -34,12 +34,19 @@ class App extends Component<SessionTokenProps, SessionTokenState> {
     this.setState({ sessionToken: token });
   };
 
+  clearToken = () => {
+    this.setState({
+      sessionToken: '',
+    });
+    localStorage.clear();
+  }
+
   render() {
     return (
       <div>
         <Router>
           <div>
-            <SiteBar />
+            <SiteBar clearToken={this.clearToken} sessionToken={this.state.sessionToken}  />
             <Auth setToken={this.setSessionState} />
           </div>
         </Router>
