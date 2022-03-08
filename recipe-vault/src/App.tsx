@@ -1,26 +1,51 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import "./App.css";
+import Auth from "./components/Auth/Auth";
+import SiteBar from "./home/NavBar";
+import Signup from "./components/Auth/Signup";
+import Login from "./components/Auth/Login";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+interface SessionTokenProps {
+
+}
+
+interface SessionTokenState {
+  sessionToken: string
+}
+
+class App extends Component<SessionTokenProps, SessionTokenState> {
+  constructor(props: SessionTokenProps) {
+    super(props);
+    this.state = {
+      sessionToken: '',
+    };
+  }
+
+  componentWillMount() {
+    const token = localStorage.getItem('token');
+    if (token && !this.state.sessionToken) {
+      this.setState({ sessionToken: token });
+    }
+  }
+
+  setSessionState = (token: string ) => {
+    localStorage.setItem("token", token);
+    this.setState({ sessionToken: token });
+  };
+
+  render() {
+    return (
+      <div>
+        <Router>
+          <div>
+            <SiteBar />
+            <Auth setToken={this.setSessionState} />
+          </div>
+        </Router>
+      </div>
+    );
+  }
 }
 
 export default App;
