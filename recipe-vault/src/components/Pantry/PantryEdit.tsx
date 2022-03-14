@@ -104,15 +104,15 @@ class PantryEdit extends React.Component<PantryEditProps, PantryEditState> {
 
   handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    /* this.pantryUpdate; */
+    this.props.update();
   };
 
-  setUpdatedPantry = (event: React.FormEvent, pantry: []) => {
+/*   setUpdatedPantry = (event: React.FormEvent, pantry: []) => {
     this.setState({
       pantryToUpdate: pantry,
       updatePressed: true,
     });
-  };
+  }; */
 
   render() {
     return (

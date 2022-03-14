@@ -32,13 +32,13 @@ interface PantrySplashState {
 
 interface PantryItems {
   id: number;
-  fruit: string;
-  meat: string;
-  servings: number;
-  spices: string;
-  timeToCook: number;
   title: string;
+  meat: string;
   veggies: string;
+  fruit: string;
+  spices: string;
+  servings: number;
+  timeToCook: number;
 }
 
 class PantrySplash extends React.Component<
@@ -103,8 +103,8 @@ class PantrySplash extends React.Component<
         veggies: "",
         fruit: "",
         spices: "",
-        servings: "",
-        timeToCook: "",
+        servings: undefined,
+        timeToCook: undefined,
       }),
       headers: new Headers({
         "Content-Type": "application/json",
@@ -121,12 +121,12 @@ class PantrySplash extends React.Component<
       });
   };
 
-    handleSubmit = (event: React.FormEvent) => {
+   /*  handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
        /*  this.pantryUpdate */
-    }
+    
 
-    setUpdatedPantry = (pantry: []) => {
+    setUpdatedPantry = (pantry: PantryItems) => {
     this.setState({
       pantryToUpdate: pantry,
       updatePressed: true,
@@ -197,7 +197,7 @@ class PantrySplash extends React.Component<
                               type="button"
                               name=".pantry-edit"
                               color="primary"
-                              onClick={() => this.pantryUpdate(pantry.id)} // this is not allowing us to change the state
+                              onClick={() => this.setUpdatedPantry(pantry)} // this is not allowing us to change the state
                             >
                               Edit
                             </Button>
