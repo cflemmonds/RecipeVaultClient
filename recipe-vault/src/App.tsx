@@ -45,7 +45,7 @@ class App extends Component<SessionTokenProps, SessionTokenState> {
 
   protectedViews = () => {
     if (this.state.sessionToken === localStorage.getItem("token")) {
-      return <PantrySplash sessionToken={this.state.sessionToken} /* pantryUpdate={this.props.pantryUpdate} *//* updatePantryCreate={updatePantryCreate} */ />;
+      return <PantrySplash sessionToken={this.state.sessionToken} />;
     } else {
       return <Auth setToken={this.setSessionState} />;
     }

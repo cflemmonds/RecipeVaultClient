@@ -17,16 +17,13 @@ import PantryEdit from "./PantryEdit";
 
 interface PantrySplashProps {
   sessionToken: string;
-  /* fetchPantry: Function */
-  /* pantryUpdate: Function */
-  /* setUpdatedPantry: Function */
 }
 
 interface PantrySplashState {
   pantryId: string;
   pantriesArray: PantryItems[]
   updatePressed: boolean;
-  pantryToUpdate: any;
+  pantryToUpdate: UpdatedPantry;
 //   pantryUpdate: Function;
 }
 
@@ -62,13 +59,13 @@ class PantrySplash extends React.Component<
       pantriesArray: [], // this is the state for this component: we have an empty "pantry", or ingredient list
       // recipeBook: [] // this will contain the recipes, wereas the pantry will hold the ingredients
       updatePressed: false,
-      pantryToUpdate: [],
+      pantryToUpdate: {} as UpdatedPantry,
     };
   }
 
   //! GET REQUEST ------------------------------------------------------------
   fetchPantry = () => {
-    // building out my function to fetch current items in my pantry or recipe log
+
     fetch(`http://localhost:3000/pantry/myPantry`, {
       method: "GET",
       headers: new Headers({
@@ -79,7 +76,6 @@ class PantrySplash extends React.Component<
       .then((res) => res.json())
       .then((logData) => {
         console.log(logData);
-        /* this.props.updatePantryArray(); */
         this.setState({ pantriesArray: logData });
         //? this displays our pantry object in the console. Now we need to get the results to display in the render.
       });
@@ -106,19 +102,18 @@ class PantrySplash extends React.Component<
   //! PUT REQUEST ------------------------------------------------------------
 
   //? This issue is that the fetch is not hitting the correct ID on the table. The url it is sending to is http://localhost:3000/pantry/editRecipe/undefined. There is no endpoint for pantryId in my API. There is only id and ownerId on the table.
-    pantryUpdate = () => {
+    pantryUpdate = (pantry: UpdatedPantry) => {
         console.log(this.state.pantryToUpdate.id)
-        // console.log(pantryId)
     fetch(`http://localhost:3000/pantry/editRecipe/${this.state.pantryToUpdate.id}`, {
       method: "PUT",
       body: JSON.stringify({
-        title: "",
-        meat: "",
-        veggies: "",
-        fruit: "",
-        spices: "",
-        servings: parseInt(' ', undefined),
-        timeToCook: parseInt(' ', undefined),
+        title: pantry.title,
+        meat: pantry.meat,
+        veggies: pantry.veggies,
+        fruit: pantry.fruit,
+        spices: pantry.spices,
+        servings: pantry.servings,
+        timeToCook: pantry.timeToCook,
       }),
       headers: new Headers({
         "Content-Type": "application/json",
@@ -135,11 +130,6 @@ class PantrySplash extends React.Component<
       });
   };
 
-   /*  handleSubmit = (event: React.FormEvent) => {
-        event.preventDefault();
-       /*  this.pantryUpdate */
-    
-
     setUpdatedPantry = (pantry: PantryItems) => {
     this.setState({
       pantryToUpdate: pantry,
@@ -152,11 +142,6 @@ class PantrySplash extends React.Component<
   }
 
   render() {
-    //   const pantry = this.state.pantriesArray.length >=1 ?
-    //   <PantryIndex pantry={this.state.pantry} delete={this.pantryDelete} update={this.setUpdatedPantry} /> :   <h2>
-    //             Log an ingredient to see table this will be added later. Delete
-    //             this once the table is displaying.
-    //           </h2>
     return (
       <div>
         <Container>
@@ -211,7 +196,7 @@ class PantrySplash extends React.Component<
                               type="button"
                               name=".pantry-edit"
                               color="primary"
-                              onClick={() => this.setUpdatedPantry(pantry)} // this is not allowing us to change the state
+                              onClick={() => this.setUpdatedPantry(pantry)}
                             >
                               Edit
                             </Button>
