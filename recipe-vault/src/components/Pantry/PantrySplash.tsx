@@ -24,9 +24,9 @@ interface PantrySplashProps {
 
 interface PantrySplashState {
   pantryId: string;
-  pantriesArray: PantryItems[];
+  pantriesArray: PantryItems[]
   updatePressed: boolean;
-  pantryToUpdate: {};
+  pantryToUpdate: any;
 //   pantryUpdate: Function;
 }
 
@@ -37,8 +37,18 @@ interface PantryItems {
   veggies: string;
   fruit: string;
   spices: string;
-  servings: number;
-  timeToCook: number;
+  servings: string;
+  timeToCook: string;
+}
+interface UpdatedPantry {
+    id: number;
+    title: string;
+    meat: string;
+    veggies: string;
+    fruit: string;
+    spices: string;
+    servings: string;
+    timeToCook: string;
 }
 
 class PantrySplash extends React.Component<
@@ -52,7 +62,7 @@ class PantrySplash extends React.Component<
       pantriesArray: [], // this is the state for this component: we have an empty "pantry", or ingredient list
       // recipeBook: [] // this will contain the recipes, wereas the pantry will hold the ingredients
       updatePressed: false,
-      pantryToUpdate: {},
+      pantryToUpdate: [],
     };
   }
 
@@ -94,8 +104,12 @@ class PantrySplash extends React.Component<
   };
 
   //! PUT REQUEST ------------------------------------------------------------
-    pantryUpdate = (pantryId: number) => {
-    fetch(`http://localhost:3000/pantry/editRecipe/${pantryId}`, {
+
+  //? This issue is that the fetch is not hitting the correct ID on the table. The url it is sending to is http://localhost:3000/pantry/editRecipe/undefined. There is no endpoint for pantryId in my API. There is only id and ownerId on the table.
+    pantryUpdate = () => {
+        console.log(this.state.pantryToUpdate.id)
+        // console.log(pantryId)
+    fetch(`http://localhost:3000/pantry/editRecipe/${this.state.pantryToUpdate.id}`, {
       method: "PUT",
       body: JSON.stringify({
         title: "",
@@ -103,8 +117,8 @@ class PantrySplash extends React.Component<
         veggies: "",
         fruit: "",
         spices: "",
-        servings: undefined,
-        timeToCook: undefined,
+        servings: parseInt(' ', undefined),
+        timeToCook: parseInt(' ', undefined),
       }),
       headers: new Headers({
         "Content-Type": "application/json",

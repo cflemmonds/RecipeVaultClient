@@ -28,7 +28,7 @@ interface PantryEditProps {
 interface PantryEditState {
   //   pantry: PantryItems[];
   updatePressed: boolean;
-  pantryToUpdate: {};
+  pantryToUpdate: PantryItems[];
   title: string;
   meat: string;
   veggies: string;
@@ -39,13 +39,13 @@ interface PantryEditState {
 }
 
 interface PantryItems {
-  //   title: string;
-  //   meat: string;
-  //   veggies: string;
-  //   fruit: string;
-  //   servings: number | undefined;
-  //   spices: string;
-  //   timeToCook: number | undefined;
+    title: string;
+    meat: string;
+    veggies: string;
+    fruit: string;
+    servings: number | undefined;
+    spices: string;
+    timeToCook: number | undefined;
 }
 
 class PantryEdit extends React.Component<PantryEditProps, PantryEditState> {
@@ -60,7 +60,7 @@ class PantryEdit extends React.Component<PantryEditProps, PantryEditState> {
       servings: undefined,
       timeToCook: undefined,
       updatePressed: false,
-      pantryToUpdate: {},
+      pantryToUpdate: [],
     };
   }
 
