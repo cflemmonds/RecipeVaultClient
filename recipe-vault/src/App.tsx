@@ -7,7 +7,9 @@ import Signup from "./components/Auth/Signup";
 import Login from "./components/Auth/Login";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
-interface SessionTokenProps {}
+interface SessionTokenProps {
+  /* pantryUpdate: Function */
+}
 
 interface SessionTokenState {
   sessionToken: string;
@@ -28,7 +30,8 @@ class App extends Component<SessionTokenProps, SessionTokenState> {
     }
   }
 
-  setSessionState = (token: string) => {
+  setSessionState = (token: string, uId: string) => {
+    localStorage.setItem("userId", uId);
     localStorage.setItem("token", token);
     this.setState({ sessionToken: token });
   };
@@ -42,7 +45,7 @@ class App extends Component<SessionTokenProps, SessionTokenState> {
 
   protectedViews = () => {
     if (this.state.sessionToken === localStorage.getItem("token")) {
-      return <PantrySplash sessionToken={this.state.sessionToken} />;
+      return <PantrySplash sessionToken={this.state.sessionToken} /* pantryUpdate={this.props.pantryUpdate} *//* updatePantryCreate={updatePantryCreate} */ />;
     } else {
       return <Auth setToken={this.setSessionState} />;
     }
@@ -60,7 +63,7 @@ class App extends Component<SessionTokenProps, SessionTokenState> {
             {/* <Auth setToken={this.setSessionState} /> */}
             <Routes>
               <Route path="/" element={this.protectedViews()} />
-              
+
 
 
             </Routes>
