@@ -1,6 +1,4 @@
-import React, { Component } from 'react'
-import PantryCreate from './PantryCreate';
-import PantryEdit from './PantryEdit';
+import React from 'react'
 
 //! THIS COMPONENT CONTAINS OUR DELETE REQUEST.
 

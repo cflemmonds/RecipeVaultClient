@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Navbar, NavbarBrand, Button } from "reactstrap";
+import {Link} from 'react-router-dom'
 
 interface SiteBarProps {
   clearToken: () => void
@@ -18,10 +19,13 @@ class SiteBar extends React.Component<SiteBarProps, SiteBarState> {
   render() {
     return (
       <div>
-        <Navbar color="faded" light expand="md">
+        <Navbar color="primary" light expand="md">
           <NavbarBrand href="/">Recipe Vault</NavbarBrand>
+          <Link to="/posts">
+          {this.props.sessionToken && <Button color="warning">MyVault</Button>}
+          </Link>
           {/* This line says "if a token exists, show this Logout button" */}
-          {this.props.sessionToken && <Button onClick={this.props.clearToken}>Logout</Button>}
+          {this.props.sessionToken && <Button color="secondary" onClick={this.props.clearToken}>Logout</Button>}
         </Navbar>
       </div>
     );

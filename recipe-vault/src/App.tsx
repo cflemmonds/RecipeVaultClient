@@ -3,12 +3,11 @@ import "./App.css";
 import Auth from "./components/Auth/Auth";
 import SiteBar from "./home/NavBar";
 import PantrySplash from "./components/Pantry/PantrySplash";
-import Signup from "./components/Auth/Signup";
-import Login from "./components/Auth/Login";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import PostSplash from "./components/Posts/PostSplash";
 
 interface SessionTokenProps {
-  /* pantryUpdate: Function */
+  /* fetchPost: Function */
 }
 
 interface SessionTokenState {
@@ -45,7 +44,7 @@ class App extends Component<SessionTokenProps, SessionTokenState> {
 
   protectedViews = () => {
     if (this.state.sessionToken === localStorage.getItem("token")) {
-      return <PantrySplash sessionToken={this.state.sessionToken} />;
+      return <PantrySplash sessionToken={this.state.sessionToken} /* fetchPost={this.props.fetchPost} *//>;
     } else {
       return <Auth setToken={this.setSessionState} />;
     }
@@ -63,9 +62,7 @@ class App extends Component<SessionTokenProps, SessionTokenState> {
             {/* <Auth setToken={this.setSessionState} /> */}
             <Routes>
               <Route path="/" element={this.protectedViews()} />
-
-
-
+              <Route path="/posts" element={<PostSplash sessionToken={this.state.sessionToken}/>}/>
             </Routes>
           </div>
         </Router>

@@ -1,9 +1,6 @@
-import React, { Component } from "react";
+import React from "react";
 import PantryIndex from "./PantryIndex";
 import {
-  Modal,
-  ModalHeader,
-  ModalBody,
   Table,
   Container,
   Row,
@@ -12,19 +9,19 @@ import {
 } from "reactstrap";
 import PantryCreate from "./PantryCreate";
 import PantryEdit from "./PantryEdit";
-
-//! THIS COMPONENT CONTAINS THE GET REQUEST
+import PostCreate from "../Posts/PostCreate";
 
 interface PantrySplashProps {
   sessionToken: string;
+  /* fetchPost: Function */
 }
 
 interface PantrySplashState {
   pantryId: string;
   pantriesArray: PantryItems[]
-  updatePressed: boolean;
   pantryToUpdate: UpdatedPantry;
-//   pantryUpdate: Function;
+  updatePressed: boolean;
+
 }
 
 interface PantryItems {
@@ -63,7 +60,7 @@ class PantrySplash extends React.Component<
     };
   }
 
-  //! GET REQUEST ------------------------------------------------------------
+  //! PANTRY GET REQUEST ------------------------------------------------------------
   fetchPantry = () => {
 
     fetch(`http://localhost:3000/pantry/myPantry`, {
@@ -81,7 +78,7 @@ class PantrySplash extends React.Component<
       });
   };
 
-  //! DELETE REQUEST ------------------------------------------------------------
+  //! PANTRY DELETE REQUEST ------------------------------------------------------------
   pantryDelete = (pantryId: number) => {
     fetch(`http://localhost:3000/pantry/deleteRecipe/${pantryId}`, {
       method: "DELETE",
@@ -99,11 +96,11 @@ class PantrySplash extends React.Component<
       .catch((err) => console.log(err));
   };
 
-  //! PUT REQUEST ------------------------------------------------------------
-
+  //! PANTRY PUT REQUEST ------------------------------------------------------------
+  
   //? This issue is that the fetch is not hitting the correct ID on the table. The url it is sending to is http://localhost:3000/pantry/editRecipe/undefined. There is no endpoint for pantryId in my API. There is only id and ownerId on the table.
-    pantryUpdate = (pantry: UpdatedPantry) => {
-        console.log(this.state.pantryToUpdate.id)
+  pantryUpdate = (pantry: UpdatedPantry) => {
+    console.log(this.state.pantryToUpdate.id)
     fetch(`http://localhost:3000/pantry/editRecipe/${this.state.pantryToUpdate.id}`, {
       method: "PUT",
       body: JSON.stringify({
@@ -120,16 +117,16 @@ class PantrySplash extends React.Component<
         Authorization: this.props.sessionToken,
       }),
     })
-      .then((res) => res.json())
-      .then((json) => {
-        console.log(json);
-        this.setState({
-         updatePressed: false
-        });
-        this.fetchPantry();
+    .then((res) => res.json())
+    .then((json) => {
+      console.log(json);
+      this.setState({
+        updatePressed: false
       });
+      this.fetchPantry();
+    });
   };
-
+  
     setUpdatedPantry = (pantry: PantryItems) => {
     this.setState({
       pantryToUpdate: pantry,
@@ -151,6 +148,7 @@ class PantrySplash extends React.Component<
                 sessionToken={this.props.sessionToken}
                 fetchPantry={this.fetchPantry}
               />
+              {/* <PostCreate sessionToken={this.props.sessionToken}/> */}
             </Col>
             <Col md="9">
                 {/*
@@ -161,10 +159,13 @@ class PantrySplash extends React.Component<
                   t={this.state.updatePressed}
                   update={this.pantryUpdate}
                   pantry={this.state.pantryToUpdate}
-                />
+                  />
               ) : (
                 <div></div>
               )}
+              <br />
+
+              <hr />
               <h3>Ingredients List</h3>
               <hr />
               <Table striped>

@@ -1,10 +1,6 @@
-import React, { Component } from "react";
+import React from "react";
 import {
-  Table,
   Button,
-  Container,
-  Row,
-  Col,
   Modal,
   ModalHeader,
   ModalBody,
@@ -13,11 +9,6 @@ import {
   Label,
   Input,
 } from "reactstrap";
-import PantryCreate from "./PantryCreate";
-import PantryIndex from "./PantryIndex";
-import PantrySplash from "./PantrySplash";
-
-//! THIS COMPONENT CONTAINS THE PUT REQUEST
 
 interface PantryEditProps {
   t: boolean
@@ -64,33 +55,8 @@ class PantryEdit extends React.Component<PantryEditProps, PantryEditState> {
     };
   }
 
-//   pantryUpdate = (event: React.FormEvent, pantryId: number) => {
-//     fetch(`http://localhost:3000/pantry/editRecipe/${pantryId}`, {
-//       method: "PUT",
-//       body: JSON.stringify({
-//         title: "",
-//         meat: "",
-//         veggies: "",
-//         fruit: "",
-//         spices: "",
-//         servings: "",
-//         timeToCook: "",
-//       }),
-//       headers: new Headers({
-//         "Content-Type": "application/json",
-//         Authorization: this.props.sessionToken,
-//       }),
-//     })
-//       .then((res) => res.json())
-//       .then((json) => {
-//         console.log(json);
-//         this.setState({ updatePressed: false });
-//         this.props.fetchPantry();
-//       });
-//   };
 
   componentWillMount() {
-    /* this.pantryUpdate; */
     this.setState({
       title: this.state.title,
       meat: this.state.meat,
@@ -115,13 +81,6 @@ class PantryEdit extends React.Component<PantryEditProps, PantryEditState> {
     }
     this.props.update(formData);
   };
-
-/*   setUpdatedPantry = (event: React.FormEvent, pantry: []) => {
-    this.setState({
-      pantryToUpdate: pantry,
-      updatePressed: true,
-    });
-  }; */
 
   render() {
     return (
@@ -199,9 +158,6 @@ class PantryEdit extends React.Component<PantryEditProps, PantryEditState> {
             </Form>
           </ModalBody>
         </Modal>
-       {/*  <PantrySplash 
-        sessionToken={this.props.sessionToken}
-        setUpdatedPantry={this.setUpdatedPantry}/> */}
       </div>
     );
   }

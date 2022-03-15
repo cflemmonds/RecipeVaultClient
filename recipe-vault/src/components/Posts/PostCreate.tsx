@@ -23,7 +23,7 @@ class PostCreate extends React.Component<PostCreateProps, PostCreateState> {
 
   handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    fetch("http://localhost:3000/posts/myPosts", {
+    fetch("http://localhost:3000/posts/post", {
       method: "POST",
       body: JSON.stringify({
         title: this.state.title,
@@ -53,7 +53,7 @@ class PostCreate extends React.Component<PostCreateProps, PostCreateState> {
         <hr />
         <Form onSubmit={this.handleSubmit}>
           <FormGroup>
-            <Label for="title">Title</Label>
+            <Label for="title">Meal Time</Label>
             <Input
               id="title"
               type="text"
@@ -62,7 +62,7 @@ class PostCreate extends React.Component<PostCreateProps, PostCreateState> {
             ></Input>
           </FormGroup>
           <FormGroup>
-            <Label for="content">Content</Label>
+            <Label for="content">Recipe Name</Label>
             <Input
               id="content"
               type="text"
@@ -70,8 +70,8 @@ class PostCreate extends React.Component<PostCreateProps, PostCreateState> {
               onChange={(e) => this.setState({ content: e.target.value })}
             ></Input>
           </FormGroup>
-        </Form>
         <Button type="submit">Submit</Button>
+        </Form>
       </div>
     );
   }
