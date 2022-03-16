@@ -19,7 +19,7 @@ class SiteBar extends React.Component<SiteBarProps, SiteBarState> {
   render() {
     return (
       <div>
-        <Navbar color="primary" light expand="md">
+        <Navbar className=".nav" color="primary" light expand="md">
           <NavbarBrand href="/">Recipe Vault</NavbarBrand>
           <Link to="/posts">
           {this.props.sessionToken && <Button color="warning">MyVault</Button>}

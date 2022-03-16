@@ -32,20 +32,17 @@ class Login extends React.Component<LoginProps, LoginState> {
     })
       .then((response) => response.json())
       .then((data) => {
-        this.props.setToken(data.sessionToken, data.user.id);
+        this.props.setToken(data.sessionToken, data.user.id, data.user.admin);
+        console.log(data);
       });
-    // console.log(this.state);
     event.preventDefault();
   };
   render() {
     return (
       <div>
-        <h1>Login</h1>
+        <h1>Back For Seconds?</h1>
         <h6>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facilis,
-          impedit libero? Odio harum, illum numquam quae nobis similique minus
-          eius consequatur eum in modi laudantium necessitatibus sit error a
-          suscipit!
+          The pantry is open. We're just waiting to grant you access. Sign in.
         </h6>
         <Form onSubmit={this.handleSubmit}>
           <FormGroup>

@@ -7,11 +7,12 @@ interface SignupProps {
 }
 
 interface SignupState {
-  firstName: string,
-  lastName: string,
-  username: string,
-  email: string,
-  password: string
+  firstName: string;
+  lastName: string;
+  username: string;
+  email: string;
+  password: string;
+  admin: false;
 }
 
 class Signup extends React.Component<SignupProps, SignupState> {
@@ -23,6 +24,7 @@ class Signup extends React.Component<SignupProps, SignupState> {
       username: "",
       email: "",
       password: "",
+      admin: false,
     };
   }
 
@@ -41,6 +43,7 @@ class Signup extends React.Component<SignupProps, SignupState> {
         username: this.state.username,
         email: this.state.email,
         password: this.state.password,
+        admin: this.state.admin,
       }),
       headers: new Headers({
         "Content-Type": "application/json",
@@ -48,22 +51,25 @@ class Signup extends React.Component<SignupProps, SignupState> {
     })
       .then((response) => response.json())
       .then((data) => {
-        this.props.setToken(data.sessionToken, data.user.id);
+        this.props.setToken(data.sessionToken, data.user.id, data.user.admin);
       });
     // console.log(this.state);
     event.preventDefault();
   };
 
+  /*  validateEmail = () => {
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(Signup.emailAddr.value))
+  {
+    return (true)
+  } alert("You have entered an invalid email address!")
+  return (false)
+} */
+
   render() {
     return (
       <div>
-        <h1>Sign Up</h1>
-        <h6>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facilis,
-          impedit libero? Odio harum, illum numquam quae nobis similique minus
-          eius consequatur eum in modi laudantium necessitatibus sit error a
-          suscipit!
-        </h6>
+        <h1>Let's Get Cooking</h1>
+        <h6>Sign up to get started.</h6>
         <Form onSubmit={this.handleSubmit}>
           <FormGroup>
             <Label for="firstName">First name</Label>
@@ -71,7 +77,7 @@ class Signup extends React.Component<SignupProps, SignupState> {
               id="firstName"
               name="firstName"
               placeholder="enter your first name"
-              onChange={(e) => this.setState({firstName: e.target.value})}
+              onChange={(e) => this.setState({ firstName: e.target.value })}
             />
           </FormGroup>
           <FormGroup>
@@ -80,7 +86,7 @@ class Signup extends React.Component<SignupProps, SignupState> {
               id="lastName"
               name="lastName"
               placeholder="enter your last name"
-              onChange={(e) => this.setState({lastName: e.target.value})}
+              onChange={(e) => this.setState({ lastName: e.target.value })}
             />
           </FormGroup>
           <FormGroup>
@@ -89,25 +95,29 @@ class Signup extends React.Component<SignupProps, SignupState> {
               id="username"
               name="username"
               placeholder="enter username"
-              onChange={(e) => this.setState({username: e.target.value})}
+              onChange={(e) => this.setState({ username: e.target.value })}
             />
           </FormGroup>
           <FormGroup>
             <Label for="email">Email</Label>
             <Input
+              type="email"
               id="email"
               name="email"
               placeholder="enter your email address"
-              onChange={(e) => this.setState({email: e.target.value})}
+              onChange={(e) => this.setState({ email: e.target.value })}
+              required
             />
           </FormGroup>
           <FormGroup>
             <Label for="username">Password</Label>
             <Input
+              type="password"
+              minLength={5}
               id="su_password"
               name="password"
               placeholder="enter password"
-              onChange={(e) => this.setState({password: e.target.value})}
+              onChange={(e) => this.setState({ password: e.target.value })}
             />
           </FormGroup>
           <Button type="submit">Submit</Button>

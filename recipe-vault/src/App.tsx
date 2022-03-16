@@ -5,13 +5,15 @@ import SiteBar from "./home/NavBar";
 import PantrySplash from "./components/Pantry/PantrySplash";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import PostSplash from "./components/Posts/PostSplash";
+import AdminSplash from "./components/Admin/AdminSplash";
 
 interface SessionTokenProps {
-  /* fetchPost: Function */
+  
 }
 
 interface SessionTokenState {
   sessionToken: string;
+  admin: true | false
 }
 
 class App extends Component<SessionTokenProps, SessionTokenState> {
@@ -19,20 +21,27 @@ class App extends Component<SessionTokenProps, SessionTokenState> {
     super(props);
     this.state = {
       sessionToken: "",
+      admin: false,
     };
   }
 
   componentWillMount() {
     const token = localStorage.getItem("token");
+    const admin = localStorage.getItem("admin");
     if (token && !this.state.sessionToken) {
       this.setState({ sessionToken: token });
     }
+    
+    if (admin && !this.state.admin) {
+      this.setState({ admin: Boolean(admin) });
+    }
   }
 
-  setSessionState = (token: string, uId: string) => {
+  setSessionState = (token: string, uId: string, admin: boolean) => {
     localStorage.setItem("userId", uId);
     localStorage.setItem("token", token);
-    this.setState({ sessionToken: token });
+    localStorage.setItem("admin", admin.toString());
+    this.setState({ sessionToken: token, admin: admin });
   };
 
   clearToken = () => {
@@ -44,11 +53,14 @@ class App extends Component<SessionTokenProps, SessionTokenState> {
 
   protectedViews = () => {
     if (this.state.sessionToken === localStorage.getItem("token")) {
-      return <PantrySplash sessionToken={this.state.sessionToken} /* fetchPost={this.props.fetchPost} *//>;
+      return (this.state.admin ? 
+      <AdminSplash sessionToken={this.state.sessionToken}/> : 
+      <PantrySplash sessionToken={this.state.sessionToken}/>)
     } else {
       return <Auth setToken={this.setSessionState} />;
     }
   };
+
 
   render() {
     return (

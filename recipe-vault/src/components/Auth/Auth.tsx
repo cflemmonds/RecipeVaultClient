@@ -9,14 +9,22 @@ interface AuthProps {
 }
  
 interface AuthState {
-    
+  firstName: string,
+  lastName: string,
+  username: string,
+  email: string,
+  password: string
 }
  
 class Auth extends React.Component<AuthProps, AuthState> {
     constructor(props: AuthProps) {
         super(props);
         this.state = {
-            
+          firstName: '',
+          lastName: '',
+          username: '',
+          email: '',
+          password: ''
          };
     }
     render() { 
