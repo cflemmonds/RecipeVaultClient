@@ -143,14 +143,14 @@ class PantrySplash extends React.Component<
       <div>
         <Container>
           <Row>
-            <Col md="3">
+            <Col md="3" sm="12">
               <PantryCreate
                 sessionToken={this.props.sessionToken}
                 fetchPantry={this.fetchPantry}
               />
               {/* <PostCreate sessionToken={this.props.sessionToken}/> */}
             </Col>
-            <Col md="9">
+            <Col md="9" >
                 {/*
                  //! TERNARY FOR THE PANTRY EDIT MODAL 
                 */}
@@ -166,7 +166,7 @@ class PantrySplash extends React.Component<
               <br />
 
               <hr />
-              <h3>Ingredients List</h3>
+              <h3 style={{color: "#0066FF"}}>Ingredients List</h3>
               <hr />
               <Table striped>
                 <thead>
@@ -196,7 +196,7 @@ class PantrySplash extends React.Component<
                             <Button
                               type="button"
                               name=".pantry-edit"
-                              color="primary"
+                              style={{color: "#0066FF"}}
                               onClick={() => this.setUpdatedPantry(pantry)}
                             >
                               Edit
@@ -204,7 +204,7 @@ class PantrySplash extends React.Component<
                             <Button
                               type="button"
                               name=".pantry-delete"
-                              color="secondary"
+                              color="warning"
                               onClick={() => this.pantryDelete(pantry.id)}
                             >
                               Delete

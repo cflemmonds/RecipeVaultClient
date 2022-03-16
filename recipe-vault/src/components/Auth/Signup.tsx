@@ -68,7 +68,7 @@ class Signup extends React.Component<SignupProps, SignupState> {
   render() {
     return (
       <div>
-        <h1>Let's Get Cooking</h1>
+        <h1 style={{color: "#0066FF"}}>Let's Get Cooking</h1>
         <h6>Sign up to get started.</h6>
         <Form onSubmit={this.handleSubmit}>
           <FormGroup>
@@ -120,7 +120,7 @@ class Signup extends React.Component<SignupProps, SignupState> {
               onChange={(e) => this.setState({ password: e.target.value })}
             />
           </FormGroup>
-          <Button type="submit">Submit</Button>
+          <Button type="submit" style={{backgroundColor: "#66FF73", color: "#0066FF"}}>Submit</Button>
         </Form>
       </div>
     );

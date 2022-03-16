@@ -49,7 +49,7 @@ class PostCreate extends React.Component<PostCreateProps, PostCreateState> {
   render() {
     return (
       <div>
-        <h3>What do you want to cook up next?</h3>
+        <h1 style={{color: "#0066FF"}}>What do you want to cook up next?</h1>
         <hr />
         <Form onSubmit={this.handleSubmit}>
           <FormGroup>
@@ -70,7 +70,7 @@ class PostCreate extends React.Component<PostCreateProps, PostCreateState> {
               onChange={(e) => this.setState({ content: e.target.value })}
             ></Input>
           </FormGroup>
-        <Button type="submit">Submit</Button>
+        <Button type="submit" style={{backgroundColor: "#66FF73"}}>Submit</Button>
         </Form>
       </div>
     );

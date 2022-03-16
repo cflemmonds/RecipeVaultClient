@@ -7,13 +7,11 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import PostSplash from "./components/Posts/PostSplash";
 import AdminSplash from "./components/Admin/AdminSplash";
 
-interface SessionTokenProps {
-  
-}
+interface SessionTokenProps {}
 
 interface SessionTokenState {
   sessionToken: string;
-  admin: true | false
+  admin: true | false;
 }
 
 class App extends Component<SessionTokenProps, SessionTokenState> {
@@ -31,7 +29,7 @@ class App extends Component<SessionTokenProps, SessionTokenState> {
     if (token && !this.state.sessionToken) {
       this.setState({ sessionToken: token });
     }
-    
+
     if (admin && !this.state.admin) {
       this.setState({ admin: Boolean(admin) });
     }
@@ -53,14 +51,15 @@ class App extends Component<SessionTokenProps, SessionTokenState> {
 
   protectedViews = () => {
     if (this.state.sessionToken === localStorage.getItem("token")) {
-      return (this.state.admin ? 
-      <AdminSplash sessionToken={this.state.sessionToken}/> : 
-      <PantrySplash sessionToken={this.state.sessionToken}/>)
+      return localStorage.getItem("admin") === "true" ?  (
+        <AdminSplash sessionToken={this.state.sessionToken} />
+      ) : (
+        <PantrySplash sessionToken={this.state.sessionToken} />
+      );
     } else {
       return <Auth setToken={this.setSessionState} />;
     }
   };
-
 
   render() {
     return (
@@ -74,7 +73,10 @@ class App extends Component<SessionTokenProps, SessionTokenState> {
             {/* <Auth setToken={this.setSessionState} /> */}
             <Routes>
               <Route path="/" element={this.protectedViews()} />
-              <Route path="/posts" element={<PostSplash sessionToken={this.state.sessionToken}/>}/>
+              <Route
+                path="/posts"
+                element={<PostSplash sessionToken={this.state.sessionToken} />}
+              />
             </Routes>
           </div>
         </Router>

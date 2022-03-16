@@ -1,15 +1,13 @@
 import React, { Component } from "react";
 import { Navbar, NavbarBrand, Button } from "reactstrap";
-import {Link} from 'react-router-dom'
+import { Link } from "react-router-dom";
 
 interface SiteBarProps {
-  clearToken: () => void
-  sessionToken: string
+  clearToken: () => void;
+  sessionToken: string;
 }
 
-interface SiteBarState {
-
-}
+interface SiteBarState {}
 
 class SiteBar extends React.Component<SiteBarProps, SiteBarState> {
   constructor(props: SiteBarProps) {
@@ -19,36 +17,36 @@ class SiteBar extends React.Component<SiteBarProps, SiteBarState> {
   render() {
     return (
       <div>
-        <Navbar className=".nav" color="primary" light expand="md">
-          <NavbarBrand href="/">Recipe Vault</NavbarBrand>
-          <Link to="/posts">
-          {this.props.sessionToken && <Button color="warning">MyVault</Button>}
-          </Link>
-          {/* This line says "if a token exists, show this Logout button" */}
-          {this.props.sessionToken && <Button color="secondary" onClick={this.props.clearToken}>Logout</Button>}
-        </Navbar>
+        {/* Material UI Nav AppBar styling */}
+        {/* <>
+          <CssBaseline />
+          <AppBar position="relative">
+            <Toolbar>
+                <Typography variant="h6">
+                      Recipe Vault
+                </Typography>
+            </Toolbar>
+          </AppBar>
+        </> */}
+
+        {/* Reactstrap NavBar styling */}
+          <Navbar className="navbar" style={{backgroundColor: "#0066FF"}}>
+            <NavbarBrand href="/" style={{color: "#66FF73"}}>Recipe Vault</NavbarBrand>
+            <Link to="/posts">
+              {this.props.sessionToken && (
+                <Button style={{backgroundColor: "#0066FF", color: "#66FF73"}}>MyVault</Button>
+              )}
+            </Link>
+            {/* This line says "if a token exists, show this Logout button" */}
+            {this.props.sessionToken && (
+              <Button color="danger" onClick={this.props.clearToken}>
+                Logout
+              </Button>
+            )}
+          </Navbar>
       </div>
     );
   }
 }
 
 export default SiteBar;
-
-// class SiteBar extends Component {
-//   constructor(props: string) {
-//     super(props);
-//     this.state = {};
-//   }
-
-//   render() {
-//     return (
-//       <div>
-//         <Navbar color="faded" light expand="md">
-//           <NavbarBrand href="/">Recipe Vault</NavbarBrand>
-//         </Navbar>
-//       </div>
-//     );
-//   }
-// }
-
-// export default SiteBar;

@@ -6,8 +6,8 @@ interface LoginProps {
 }
 
 interface LoginState {
-  username: string
-  password: string
+  username: string;
+  password: string;
 }
 
 class Login extends React.Component<LoginProps, LoginState> {
@@ -40,7 +40,7 @@ class Login extends React.Component<LoginProps, LoginState> {
   render() {
     return (
       <div>
-        <h1>Back For Seconds?</h1>
+        <h1 style={{ color: "#0066FF" }}>Back For Seconds?</h1>
         <h6>
           The pantry is open. We're just waiting to grant you access. Sign in.
         </h6>
@@ -48,22 +48,27 @@ class Login extends React.Component<LoginProps, LoginState> {
           <FormGroup>
             <Label for="username">Username</Label>
             <Input
-              id="username"
+              
               name="username"
               placeholder="enter username"
-              onChange={(e) => this.setState({username: e.target.value})}
+              onChange={(e) => this.setState({ username: e.target.value })}
             />
           </FormGroup>
           <FormGroup>
             <Label for="username">Password</Label>
             <Input
-              id="su_password"
+              type="password"
               name="password"
               placeholder="enter password"
-              onChange={(e) => this.setState({password: e.target.value})}
+              onChange={(e) => this.setState({ password: e.target.value })}
             />
           </FormGroup>
-          <Button type="submit">Submit</Button>
+          <Button
+            type="submit"
+            style={{ backgroundColor: "#66FF73", color: "#0066FF" }}
+          >
+            Submit
+          </Button>
         </Form>
       </div>
     );

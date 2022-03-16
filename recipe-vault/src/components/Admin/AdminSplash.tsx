@@ -20,7 +20,7 @@ class AdminSplash extends React.Component<AdminSplashProps, AdminSplashState> {
                     </Col>
                     <br />
                     <Col md="5">
-                        <h3>Admin Access Granted</h3>
+                        <h3 >Admin Access Granted</h3>
                     </Col>
                 </Row>
             </Container>

@@ -76,7 +76,7 @@ class PantryCreate extends React.Component<
   render() {
     return (
       <div>
-        <h3>What are we cookin' with?</h3>
+        <h1 style={{color: "#0066FF"}}>What are we cookin' with?</h1>
         <hr />
         <Form onSubmit={this.handleSubmit}>
           <FormGroup>
@@ -142,7 +142,7 @@ class PantryCreate extends React.Component<
               onChange={(e) => this.setState({ timeToCook: +e.target.value })}
             ></Input>
           </FormGroup>
-          <Button type="submit">Submit</Button>
+          <Button type="submit" style={{backgroundColor: "#66FF73"}}>Submit</Button>
         </Form>
       </div>
     );
